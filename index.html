@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Dining philosophers</title>
+  <style>
+    .table {
+      margin: 150px auto;
+      width: 200px;
+      height: 200px;
+      background: #612200;
+      border-radius: 50%;
+      position: relative;
+    }
+    .phil {
+      width: 50px;
+      height: 50px;
+      background: #008000;
+      border-radius: 50%;
+      text-align: center;
+      color: #fff;
+      font: bold 40px Arial serif;
+      position: absolute;
+      top: 75px;
+      left: 75px;
+      transition: 1s;
+    }
+    .think { background: #008000; }
+    .wait { background: #808080; }
+    .eat { background: #f00; }
+    .fork {
+      width: 20px;
+      height: 3px;
+      background: #ffd700;
+      position: absolute;
+      top: 100px;
+      left: 90px;
+      transition: 1s;
+    }
+  </style>
+</head>
+<body>
+
+<div class="table">
+  <div class="phil">1</div>
+  <div class="phil">2</div>
+  <div class="phil">3</div>
+  <div class="phil">4</div>
+  <div class="phil">5</div>
+  <div class="fork"></div>
+  <div class="fork"></div>
+  <div class="fork"></div>
+  <div class="fork"></div>
+  <div class="fork"></div>
+</div>
+
+<script>
+window.onload = function () {
+  let phils = document.querySelectorAll(".phil");
+  let forks = document.querySelectorAll(".fork");
+
+  let sock = new WebSocket("ws://localhost:8080/think");
+
+  sock.onopen = function () {
+    const n = 5;
+    const R = 150, r = 50;
+    const angle = 360 / n;
+    for (let i = 0; i < n; i++) {
+      setPhil(phils[i], i * angle, R);
+      forks[i].angles = {
+        back: (i + 0.5) * angle,
+        right: (i + 0.25) * angle,
+        left: (i + 0.75) * angle,
+      };
+      setFork(forks[i], forks[i].angles.back, r);
+    }
+  };
+
+  sock.onmessage = function (msg) {
+    let data = JSON.parse(msg.data);
+    switch (data.who) {
+      case "phil":
+        phils[data.id].className = "phil " + data.action;
+        break;
+      case "fork":
+        let fork = forks[data.id];
+        const r = data.action === "back" ? 50 : 75;
+        setFork(fork, fork.angles[data.action], r);
+        break;
+    }
+  };
+};
+
+function setPhil (phil, angle, r) {
+  phil.style.transform = "rotate(" + angle + "deg)";
+  phil.style.transform += "translate(" + r + "px)";
+  phil.style.transform += "rotate(" + (-angle) + "deg)";
+}
+
+function setFork (fork, angle, r) {
+  fork.style.transform = "rotate(" + angle + "deg)";
+  fork.style.transform += "translate(" + r + "px)";
+}
+</script>
+</body>
+</html>

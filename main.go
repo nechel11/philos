@@ -51,18 +51,17 @@ func eat (output chan string, l_f, r_f, id int, forks []sync.Mutex){
 		t_eat := genTime()
 		t_think:= genTime()
 
-		left_action := "left"
-		right_action := "right"
-
-		if id == 0{
-			left_action = "right"
-			right_action = "left"
-		}
-
 		output<- format("phil", id, "think")
 		time.Sleep(time.Duration(t_think) * time.Millisecond)
 		output<- format("phil", id, "wait")
 		
+		left_action := "right"
+		right_action := "left"
+
+		if id == 0{
+			left_action = "left"
+			right_action = "right"
+		}
 
 		forks[l_f].Lock()
 		output<-format("fork", l_f, left_action) 
@@ -70,7 +69,7 @@ func eat (output chan string, l_f, r_f, id int, forks []sync.Mutex){
 		output<-format("fork", r_f, right_action) 
 
 		output<-format("phil", id, "eat")
-		time.Sleep(time.Duration(t_eat) * time.Microsecond)
+		time.Sleep(time.Duration(t_eat) * time.Millisecond)
 		output<-format("phil", id, "wait")
 
 		forks[r_f].Unlock()

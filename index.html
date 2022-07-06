@@ -47,6 +47,10 @@
   <div class="phil">3</div>
   <div class="phil">4</div>
   <div class="phil">5</div>
+  <div class="phil">6</div>
+  <div class="phil">7</div>
+  <div class="fork"></div>
+  <div class="fork"></div>
   <div class="fork"></div>
   <div class="fork"></div>
   <div class="fork"></div>
@@ -62,7 +66,7 @@ window.onload = function () {
   let sock = new WebSocket("ws://localhost:8080/think");
 
   sock.onopen = function () {
-    const n = 5;
+    const n = 7;
     const R = 150, r = 50;
     const angle = 360 / n;
     for (let i = 0; i < n; i++) {

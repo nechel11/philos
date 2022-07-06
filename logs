@@ -1,0 +1,55 @@
+2022/07/06 14:50:52 Philo 0 is thinking for 887 millisecs
+2022/07/06 14:50:52 Philo 3 is thinking for -941 millisecs
+2022/07/06 14:50:52 Philo 6 is thinking for 2300 millisecs
+2022/07/06 14:50:52 Philo 4 is thinking for 2089 millisecs
+2022/07/06 14:50:52 Philo 5 is thinking for -489 millisecs
+2022/07/06 14:50:52 Philo 2 is thinking for 1540 millisecs
+2022/07/06 14:50:52 Philo 5 locks left fork
+2022/07/06 14:50:52 Philo 5 locks right fork
+2022/07/06 14:50:52 Philo 3 locks left fork
+2022/07/06 14:50:52 Philo 1 is thinking for 2318 millisecs
+2022/07/06 14:50:52 Philo 5 is eating for 3694 millisecs
+2022/07/06 14:50:52 Philo 3 locks right fork
+2022/07/06 14:50:52 Philo 3 is eating for 847 millisecs
+2022/07/06 14:50:53 Philo 3 unlocks right fork
+2022/07/06 14:50:53 Philo 3 unlocks left fork
+2022/07/06 14:50:53 Philo 3 is thinking for 274 millisecs
+2022/07/06 14:50:53 Philo 0 locks left fork
+2022/07/06 14:50:53 Philo 0 locks right fork
+2022/07/06 14:50:53 Philo 0 is eating for 1081 millisecs
+2022/07/06 14:50:54 Philo 3 locks left fork
+2022/07/06 14:50:54 Philo 3 locks right fork
+2022/07/06 14:50:54 Philo 3 is eating for 1728 millisecs
+2022/07/06 14:50:54 Philo 0 unlocks right fork
+2022/07/06 14:50:54 Philo 0 unlocks left fork
+2022/07/06 14:50:54 Philo 0 is thinking for 445 millisecs
+2022/07/06 14:50:55 Philo 6 locks left fork
+2022/07/06 14:50:55 Philo 1 locks left fork
+2022/07/06 14:50:55 Philo 1 locks right fork
+2022/07/06 14:50:55 Philo 1 is eating for 3081 millisecs
+2022/07/06 14:50:55 Philo 3 unlocks right fork
+2022/07/06 14:50:55 Philo 3 unlocks left fork
+2022/07/06 14:50:55 Philo 3 is thinking for 106 millisecs
+2022/07/06 14:50:55 Philo 3 locks left fork
+2022/07/06 14:50:56 Philo 5 unlocks right fork
+2022/07/06 14:50:56 Philo 5 unlocks left fork
+2022/07/06 14:50:56 Philo 4 locks left fork
+2022/07/06 14:50:56 Philo 6 locks right fork
+2022/07/06 14:50:56 Philo 6 is eating for 3456 millisecs
+2022/07/06 14:50:56 Philo 5 is thinking for 4466 millisecs
+2022/07/06 14:50:58 Philo 1 unlocks right fork
+2022/07/06 14:50:58 Philo 1 unlocks left fork
+2022/07/06 14:50:58 Philo 2 locks right fork
+2022/07/06 14:50:58 Philo 1 is thinking for 3258 millisecs
+2022/07/06 14:50:58 Philo 2 is eating for 1425 millisecs
+2022/07/06 14:50:59 Philo 2 unlocks right fork
+2022/07/06 14:50:59 Philo 2 unlocks left fork
+2022/07/06 14:50:59 Philo 3 locks right fork
+2022/07/06 14:50:59 Philo 2 is thinking for 4947 millisecs
+2022/07/06 14:50:59 Philo 3 is eating for 4237 millisecs
+2022/07/06 14:51:00 Philo 6 unlocks right fork
+2022/07/06 14:51:00 Philo 6 unlocks left fork
+2022/07/06 14:51:00 Philo 6 is thinking for 3888 millisecs
+2022/07/06 14:51:00 Philo 0 locks left fork
+2022/07/06 14:51:00 Philo 0 locks right fork
+2022/07/06 14:51:00 Philo 0 is eating for 4211 millisecs

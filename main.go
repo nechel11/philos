@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	n_philos = 5
+	n_philos = 7
 	min_time = 1000
 	max_time = 5000
 )

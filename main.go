@@ -7,21 +7,21 @@ import (
 	"net/http"
 	"sync"
 	"time"
-	
+
 	"golang.org/x/net/websocket"
 )
 
 const (
-	num = 5
-	minTime = 1000
-	maxTime = 5000
+	n_philos = 5
+	min_time = 1000
+	max_time = 5000
 )
 
-func main() {
-	handlefunc()
+func main(){
+	handle_func()
 }
 
-func handlefunc(){
+func handle_func(){
 	http.HandleFunc("/", index)
 	http.Handle("/think", websocket.Handler(think))
 
@@ -31,56 +31,67 @@ func handlefunc(){
 
 func index(w http.ResponseWriter, r *http.Request){
 	http.ServeFile(w, r, "index.html")
-	
 }
 
 func think(ws *websocket.Conn){
-	output := make(chan string)
-	forks := make([]sync.Mutex, num)
-	for i:=1; i< num; i++{
-		go eat(output, i, i-1, i, forks)
+	forks := make([]sync.Mutex, n_philos)
+	chanel := make(chan string)
+
+	for i := 1; i < n_philos; i++{
+		go action(i, i-1, i, chanel, forks)
 	}
-	go eat(output, 0, num-1, 0, forks)
+	// first philo has to be left-handed, otherwise deadlock//
+	go action(0, n_philos - 1, 0, chanel, forks) 
 	for {
-		websocket.Message.Send(ws, <-output)
+		websocket.Message.Send(ws, <-chanel)
 	}
 }
 
-func eat (output chan string, l_f, r_f, id int, forks []sync.Mutex){
-	for {
-		t_eat := genTime()
-		t_think:= genTime()
-
-		output<- format("phil", id, "think")
-		time.Sleep(time.Duration(t_think) * time.Millisecond)
-		output<- format("phil", id, "wait")
+func action(left_fork, right_fork, id int, chanel chan string, forks []sync.Mutex){
+	for {	
 		
-		left_action := "right"
-		right_action := "left"
+		t_eat := genTime()
+		t_think := genTime()
+		var leftaction string
+		var rightaction string
+		if_first(id, &leftaction, &rightaction)
 
-		if id == 0{
-			left_action = "left"
-			right_action = "right"
-		}
+		chanel <- format("phil", id, "think")
+		time.Sleep(time.Duration(t_think) * time.Millisecond)
+		chanel <- format("phil", id, "wait")
 
-		forks[l_f].Lock()
-		output<-format("fork", l_f, left_action) 
-		forks[r_f].Lock()
-		output<-format("fork", r_f, right_action) 
+		/* philo takes forks and locks other routines */
+		forks[left_fork].Lock()
+		chanel <- format("fork" , left_fork, leftaction)
+		forks[right_fork].Lock()
+		chanel <- format("fork" , right_fork, rightaction)
 
-		output<-format("phil", id, "eat")
+		/* philo takes a dinner for t_eat milliseconds */
+		chanel <- format("phil", id, "eat")
 		time.Sleep(time.Duration(t_eat) * time.Millisecond)
-		output<-format("phil", id, "wait")
+		chanel <- format("phil", id, "wait")
 
-		forks[r_f].Unlock()
-		output<-format("fork", r_f, "back") 
-		forks[l_f].Unlock()
-		output<-format("fork", l_f, "back") 
+		/* after having dinner philo unlocks forks (routines) */
+		forks[right_fork].Unlock()
+		chanel <- format("fork" , right_fork, "back")
+		forks[left_fork].Unlock()
+		chanel <- format("fork" , left_fork, "back")
+	}
+}
+
+func if_first(id int, leftaction *string, rightaction *string){
+	/* check if philos' id == 0 and set action */
+	if id == 0{
+		*leftaction = "left"
+		*rightaction = "right"
+	} else {
+		*leftaction = "right"
+		*rightaction = "left"
 	}
 }
 
 func genTime() int {
-	return rand.Intn(maxTime+minTime) - minTime
+	return rand.Intn(max_time+min_time) - min_time
 }
 
 func format(who string, id int, action string) string {

@@ -12,4 +12,8 @@ go install "golang.org/x/net/websocket" (if you don't have websocket module)
 go run main.go
 ```
 ## How it works
+![philos](https://user-images.githubusercontent.com/91884862/177552561-5c00feba-30b1-48db-ae66-6be40226150c.gif)
 
+- ![#f03c15](https://via.placeholder.com/15/f03c15/f03c15.png) `philo is eating`
+- ![#c5f015](https://via.placeholder.com/15/c5f015/c5f015.png) `philo is thinking`
+- ![#999999](https://via.placeholder.com/15/999999/999999.png) `philo is waiting`

@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 	"os"
-
+	
 	"golang.org/x/net/websocket"
 )
 
@@ -39,16 +39,16 @@ func think(ws *websocket.Conn){
 	chanel := make(chan string)
 
 	for i := 1; i < n_philos; i++{
-		go action(i, i-1, i, chanel, forks)
+		go action(i, forks, i, i-1, chanel)
 	}
 	// first philo has to be left-handed, otherwise deadlock//
-	go action(0, n_philos - 1, 0, chanel, forks) 
+	go action(0, forks, n_philos-1, 0, chanel) 
 	for {
 		websocket.Message.Send(ws, <-chanel)
 	}
 }
 
-func action(left_fork, right_fork, id int, chanel chan string, forks []sync.Mutex){
+func action(id int, forks []sync.Mutex, left_fork, right_fork int, chanel chan string){
 	for {	
 		
 		t_eat := genTime()
@@ -64,11 +64,11 @@ func action(left_fork, right_fork, id int, chanel chan string, forks []sync.Mute
 
 		/* philo takes forks and locks other routines */
 		forks[left_fork].Lock()
-		to_log("left lock", id, 0)
 		chanel <- format("fork" , left_fork, leftaction)
+		to_log("left lock", id, 0)
 		forks[right_fork].Lock()
-		to_log("right lock", id, 0)
 		chanel <- format("fork" , right_fork, rightaction)
+		to_log("right lock", id, 0)
 
 		/* philo takes a dinner for t_eat milliseconds */
 		chanel <- format("phil", id, "eat")
@@ -78,11 +78,11 @@ func action(left_fork, right_fork, id int, chanel chan string, forks []sync.Mute
 
 		/* after having dinner philo unlocks forks (routines) */
 		forks[right_fork].Unlock()
-		to_log("right unlock", id, 0)
 		chanel <- format("fork" , right_fork, "back")
+		to_log("right unlock", id, 0)
 		forks[left_fork].Unlock()
-		to_log("left unlock", id, 0)
 		chanel <- format("fork" , left_fork, "back")
+		to_log("left unlock", id, 0)
 	}
 }
 

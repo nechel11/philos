@@ -17,3 +17,6 @@ go run main.go
 - ![#f03c15](https://via.placeholder.com/15/f03c15/f03c15.png) `philo is eating`
 - ![#c5f015](https://via.placeholder.com/15/c5f015/c5f015.png) `philo is thinking`
 - ![#999999](https://via.placeholder.com/15/999999/999999.png) `philo is waiting`
+  ### Timings
+    For every cicle time to eat and time to think picks randolmy in range 6000 millisecs
+

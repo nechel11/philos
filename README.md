@@ -1,4 +1,8 @@
 # Dining philosophers problem
+
+## How it works
+![philos](https://user-images.githubusercontent.com/91884862/177552561-5c00feba-30b1-48db-ae66-6be40226150c.gif)
+
 ## Problem statement
 Five philosophers dine together at the same table. Each philosopher has their own place at the table. Their philosophical problem in this instance is that the dish served is a kind of spaghetti which has to be eaten with two forks.
 
@@ -11,8 +15,7 @@ cd philos
 go install "golang.org/x/net/websocket" (if you don't have websocket module)
 go run main.go
 ```
-## How it works
-![philos](https://user-images.githubusercontent.com/91884862/177552561-5c00feba-30b1-48db-ae66-6be40226150c.gif)
+
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/f03c15.png) `philo is eating`
 - ![#c5f015](https://via.placeholder.com/15/c5f015/c5f015.png) `philo is thinking`
